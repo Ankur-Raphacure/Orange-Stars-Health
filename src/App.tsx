@@ -208,7 +208,7 @@ function Landing() {
     <>
       <TopBar />
       <Hero onOpenRaphacure={() => setShowRaphacure(true)} />
-      <HealthRiskAssessment />
+      <HealthRiskAssessment onOpenRaphacure={() => setShowRaphacure(true)} />
       <QuickServices />
       <BentoGrid />
       <WhyOrangeStars />
@@ -616,49 +616,49 @@ function Hero({ onOpenRaphacure }: { onOpenRaphacure: () => void }) {
 }
 
 /* ---------- Health Risk Assessment ---------- */
-function HealthRiskAssessment() {
+function HealthRiskAssessment({ onOpenRaphacure }: { onOpenRaphacure: () => void }) {
   return (
     <section className="px-5 mt-12">
       <Reveal>
-        <CardLink to="/">
-          <div className="relative rounded-[24px] p-6 bento-card overflow-hidden bg-gradient-to-br from-white to-[oklch(0.97_0.03_60)]">
-            <div className="pointer-events-none absolute -top-10 -right-6 w-40 h-40 rounded-full bg-primary/10 blur-2xl" />
-            <div className="flex items-start gap-4">
-              <div className="relative shrink-0">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[oklch(0.94_0.09_25)] to-[oklch(0.86_0.16_30)] grid place-items-center shadow-soft animate-pulse-ring">
-                  <Heart className="w-7 h-7 text-white" fill="white" />
-                </div>
-              </div>
-              <div className="min-w-0 flex-1">
-                <div className="text-[11px] font-semibold uppercase tracking-wider text-primary/80">
-                  Health Risk Assessment
-                </div>
-                <h3 className="mt-1 text-[19px] font-bold leading-snug">
-                  Know your health <br />
-                  before symptoms appear.
-                </h3>
+        <div className="relative rounded-[24px] p-6 bento-card overflow-hidden bg-gradient-to-br from-white to-[oklch(0.97_0.03_60)]">
+          <div className="pointer-events-none absolute -top-10 -right-6 w-40 h-40 rounded-full bg-primary/10 blur-2xl" />
+          <div className="flex items-start gap-4">
+            <div className="relative shrink-0">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[oklch(0.94_0.09_25)] to-[oklch(0.86_0.16_30)] grid place-items-center shadow-soft animate-pulse-ring">
+                <Heart className="w-7 h-7 text-white" fill="white" />
               </div>
             </div>
-            <p className="mt-4 text-[14px] text-muted-foreground leading-relaxed">
-              Complete your assessment and receive a personalized wellness score in under 5 minutes.
-            </p>
-
-            {/* progress preview */}
-            <div className="mt-4 rounded-2xl bg-secondary/70 p-3">
-              <div className="flex items-center justify-between text-[12px] font-medium">
-                <span className="text-muted-foreground">Your wellness score</span>
-                <span className="text-primary font-bold">
-                  <CountUp to={78} /> / 100
-                </span>
+            <div className="min-w-0 flex-1">
+              <div className="text-[11px] font-semibold uppercase tracking-wider text-primary/80">
+                Health Risk Assessment
               </div>
-              <AnimatedBar pct={78} />
-            </div>
-
-            <div className="mt-5">
-              <PillButton>Start Assessment</PillButton>
+              <h3 className="mt-1 text-[19px] font-bold leading-snug">
+                Know your health <br />
+                before symptoms appear.
+              </h3>
             </div>
           </div>
-        </CardLink>
+          <p className="mt-4 text-[14px] text-muted-foreground leading-relaxed">
+            Complete your assessment and receive a personalized wellness score in under 5 minutes.
+          </p>
+
+          {/* progress preview */}
+          <div className="mt-4 rounded-2xl bg-secondary/70 p-3">
+            <div className="flex items-center justify-between text-[12px] font-medium">
+              <span className="text-muted-foreground">Your wellness score</span>
+              <span className="text-primary font-bold">
+                <CountUp to={78} /> / 100
+              </span>
+            </div>
+            <AnimatedBar pct={78} />
+          </div>
+
+          <div className="mt-5">
+            <button onClick={onOpenRaphacure} className="group press">
+              <PillButton>Start Assessment</PillButton>
+            </button>
+          </div>
+        </div>
       </Reveal>
     </section>
   );
