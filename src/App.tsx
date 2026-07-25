@@ -193,7 +193,7 @@ function RaphacureIframe({ onClose }: { onClose: () => void }) {
         </button>
       </div>
       <iframe
-        src="https://raphacure.com/"
+        src="https://orangestars.raphacure.com/"
         className="flex-1 w-full border-none"
         title="RaphaCure"
       />
@@ -228,9 +228,9 @@ function Landing() {
       <PageLoader />
       <AuroraBackground />
 
-      {/* Hidden preload iframe — tells browser to fetch & cache raphacure.com on page load */}
+      {/* Hidden preload iframe — tells browser to fetch & cache orangestars.raphacure.com on page load */}
       <iframe
-        src="https://raphacure.com/"
+        src="https://orangestars.raphacure.com/"
         className="absolute w-px h-px opacity-0 pointer-events-none"
         aria-hidden="true"
         title="RaphaCure preload"
