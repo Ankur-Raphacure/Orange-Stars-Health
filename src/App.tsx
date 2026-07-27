@@ -180,7 +180,7 @@ function PillButton({
 
 
 /* ============================================================ */
-function RaphacureIframe({ onClose }: { onClose: () => void }) {
+function RaphacureIframe({ src, onClose }: { src: string; onClose: () => void }) {
   return (
     <div className="fixed inset-0 z-[100] bg-white flex flex-col">
       <div className="flex items-center gap-2 px-4 py-3 border-b border-gray-200 shrink-0 bg-white">
@@ -193,7 +193,7 @@ function RaphacureIframe({ onClose }: { onClose: () => void }) {
         </button>
       </div>
       <iframe
-        src="https://orangestars.raphacure.com/"
+        src={src}
         className="flex-1 w-full border-none"
         title="RaphaCure"
       />
@@ -202,13 +202,13 @@ function RaphacureIframe({ onClose }: { onClose: () => void }) {
 }
 
 function Landing() {
-  const [showRaphacure, setShowRaphacure] = useState(false);
+  const [raphacureUrl, setRaphacureUrl] = useState<string | null>(null);
 
   const appColumn = (
     <>
-      <TopBar />
-      <Hero onOpenRaphacure={() => setShowRaphacure(true)} />
-      <HealthRiskAssessment onOpenRaphacure={() => setShowRaphacure(true)} />
+      <TopBar onLogin={() => window.location.href = "https://raphacure.com/?showLogin=true"} />
+      <Hero onOpenRaphacure={(url: string) => setRaphacureUrl(url)} />
+      <HealthRiskAssessment onOpenRaphacure={() => setRaphacureUrl("https://hra.raphacure.net/")} />
       <QuickServices />
       <BentoGrid />
       <WhyOrangeStars />
@@ -237,7 +237,7 @@ function Landing() {
       />
 
       {/* Full-viewport iframe overlay */}
-      {showRaphacure && <RaphacureIframe onClose={() => setShowRaphacure(false)} />}
+      {raphacureUrl && <RaphacureIframe src={raphacureUrl} onClose={() => setRaphacureUrl(null)} />}
 
       {/* Mobile / tablet: original edge-to-edge column */}
       <div className="relative z-10 mx-auto w-full max-w-[480px] pb-40 lg:hidden">
@@ -248,7 +248,7 @@ function Landing() {
       </div>
 
       {/* Desktop: premium marketing shell with the app rendered inside a phone frame */}
-      <DesktopShell phone={<PhoneFrame>{appColumn}</PhoneFrame>} onOpenRaphacure={() => setShowRaphacure(true)} />
+      <DesktopShell phone={<PhoneFrame>{appColumn}</PhoneFrame>} onOpenRaphacure={(url: string) => setRaphacureUrl(url)} />
     </div>
   );
 }
@@ -274,7 +274,7 @@ function PhoneFrame({ children }: { children: ReactNode }) {
 }
 
 /* ---------- Desktop marketing shell ---------- */
-function DesktopShell({ phone, onOpenRaphacure }: { phone: ReactNode; onOpenRaphacure: () => void }) {
+function DesktopShell({ phone, onOpenRaphacure }: { phone: ReactNode; onOpenRaphacure: (url: string) => void }) {
   return (
     <div className="relative z-10 hidden lg:block">
       <DesktopNav />
@@ -297,10 +297,10 @@ function DesktopShell({ phone, onOpenRaphacure }: { phone: ReactNode; onOpenRaph
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <button onClick={onOpenRaphacure} className="group press">
+            <button onClick={() => onOpenRaphacure("https://orangestars.raphacure.com/")} className="group press">
               <PillButton>Explore Services</PillButton>
             </button>
-            <button onClick={onOpenRaphacure} className="group press">
+            <button onClick={() => onOpenRaphacure("https://hra.raphacure.net/")} className="group press">
               <PillButton variant="ghost" icon={<ChevronRight className="w-4 h-4" />}>
                 Start Health Assessment
               </PillButton>
@@ -395,6 +395,12 @@ function DesktopNav() {
           ))}
         </nav>
         <div className="flex items-center gap-2">
+          <a
+            href="https://raphacure.com/?showLogin=true"
+            className="px-4 py-2 rounded-full text-[13px] font-semibold text-foreground/70 hover:text-foreground hover:bg-white/60 transition"
+          >
+            Login
+          </a>
           <Link to="/" className="group press">
             <PillButton>Get the app</PillButton>
           </Link>
@@ -495,7 +501,7 @@ function AnimatedBar({ pct }: { pct: number }) {
 
 
 /* ---------- Top App Bar ---------- */
-function TopBar() {
+function TopBar({ onLogin }: { onLogin?: () => void }) {
   return (
     <header className="sticky top-0 z-40 px-5 pt-4 pb-3 bg-gradient-to-b from-background via-background/90 to-background/0 backdrop-blur-md">
       <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
@@ -510,6 +516,12 @@ function TopBar() {
           </div>
         </Link>
         <div className="flex items-center gap-2 shrink-0">
+          <button
+            onClick={onLogin}
+            className="text-[13px] font-semibold text-foreground/70 hover:text-foreground transition-colors px-2"
+          >
+            Login
+          </button>
           <button
             aria-label="Notifications"
             className="relative w-10 h-10 rounded-full glass grid place-items-center hover:bg-white/80 transition"
@@ -529,7 +541,7 @@ function TopBar() {
 }
 
 /* ---------- Hero ---------- */
-function Hero({ onOpenRaphacure }: { onOpenRaphacure: () => void }) {
+function Hero({ onOpenRaphacure }: { onOpenRaphacure: (url: string) => void }) {
   return (
     <section className="px-5 pt-3">
       <Reveal>
@@ -599,10 +611,10 @@ function Hero({ onOpenRaphacure }: { onOpenRaphacure: () => void }) {
             </div>
 
             <div className="mt-2 flex flex-col gap-2.5">
-              <button onClick={onOpenRaphacure} className="group press">
+              <button onClick={() => onOpenRaphacure("https://orangestars.raphacure.com/")} className="group press">
                 <PillButton>Explore Services</PillButton>
               </button>
-              <button onClick={onOpenRaphacure} className="group press">
+              <button onClick={() => onOpenRaphacure("https://hra.raphacure.net/")} className="group press">
                 <PillButton variant="ghost" icon={<ChevronRight className="w-4 h-4" />}>
                   Start Health Assessment
                 </PillButton>
