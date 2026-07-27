@@ -206,7 +206,7 @@ function Landing() {
 
   const appColumn = (
     <>
-      <TopBar onLogin={() => setRaphacureUrl("https://raphacure.com/?showLogin=true")} />
+      <TopBar onLogin={() => setRaphacureUrl("https://orangestars.raphacure.com/?showLogin=true")} />
       <Hero onOpenRaphacure={(url: string) => setRaphacureUrl(url)} />
       <HealthRiskAssessment onOpenRaphacure={() => setRaphacureUrl("https://hra.raphacure.net/")} />
       <QuickServices />
@@ -356,16 +356,12 @@ function DesktopShell({ phone, onOpenRaphacure, onLogin }: { phone: ReactNode; o
 
       <footer className="relative border-t border-border/60 bg-background/60 backdrop-blur-md">
         <div className="mx-auto max-w-7xl px-10 py-10 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center">
             <img
               src="https://raphacure-public-images.s3.ap-south-1.amazonaws.com/817420-1785136129865.png"
               alt="Orange Stars"
-              className="h-9 w-auto object-contain"
+              className="h-20 w-auto object-contain"
             />
-            <div>
-              <div className="text-[14px] font-bold">Orange Stars</div>
-              <div className="text-[11px] text-muted-foreground">Preventive care · HSA</div>
-            </div>
           </div>
           <div className="text-[12px] text-muted-foreground">© {new Date().getFullYear()} Orange Stars. All rights reserved.</div>
         </div>
@@ -379,13 +375,12 @@ function DesktopNav({ onLogin }: { onLogin: () => void }) {
   return (
     <header className="sticky top-4 z-40 mx-auto max-w-7xl px-6">
       <div className="glass-strong rounded-full px-5 py-3 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2.5">
+        <Link to="/" className="flex items-center">
           <img
             src="https://raphacure-public-images.s3.ap-south-1.amazonaws.com/817420-1785136129865.png"
             alt="Orange Stars"
-            className="h-9 w-auto object-contain"
+            className="h-20 w-auto object-contain"
           />
-          <div className="text-[15px] font-bold">Orange Stars</div>
         </Link>
         <nav className="flex items-center gap-1">
           {links.map((l) => (
@@ -509,18 +504,14 @@ function TopBar({ onLogin }: { onLogin?: () => void }) {
   return (
     <header className="sticky top-0 z-40 px-5 pt-4 pb-3 bg-gradient-to-b from-background via-background/90 to-background/0 backdrop-blur-md">
       <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
-        <Link to="/" className="flex min-w-0 items-center gap-2.5">
+        <Link to="/" className="flex min-w-0 items-center">
           <div className="relative inline-flex shrink-0">
             <img
               src="https://raphacure-public-images.s3.ap-south-1.amazonaws.com/817420-1785136129865.png"
               alt="Orange Stars"
-              className="h-10 w-auto object-contain"
+              className="h-20 w-auto object-contain"
             />
             <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-[oklch(0.68_0.16_148)] ring-2 ring-background" />
-          </div>
-          <div className="min-w-0">
-            <div className="text-[15px] font-bold leading-none truncate">Orange Stars</div>
-            <div className="text-[11px] text-muted-foreground mt-1">Preventive care · HSA</div>
           </div>
         </Link>
         <div className="flex items-center gap-2 shrink-0">
