@@ -357,9 +357,11 @@ function DesktopShell({ phone, onOpenRaphacure }: { phone: ReactNode; onOpenRaph
       <footer className="relative border-t border-border/60 bg-background/60 backdrop-blur-md">
         <div className="mx-auto max-w-7xl px-10 py-10 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-2xl cta-gradient grid place-items-center shadow-glow">
-              <Sparkles className="w-4 h-4 text-white" />
-            </div>
+            <img
+              src="https://raphacure-public-images.s3.ap-south-1.amazonaws.com/817420-1785136129865.png"
+              alt="Orange Stars"
+              className="w-9 h-9 object-contain"
+            />
             <div>
               <div className="text-[14px] font-bold">Orange Stars</div>
               <div className="text-[11px] text-muted-foreground">Preventive care · HSA</div>
@@ -378,9 +380,11 @@ function DesktopNav() {
     <header className="sticky top-4 z-40 mx-auto max-w-7xl px-6">
       <div className="glass-strong rounded-full px-5 py-3 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-2xl cta-gradient grid place-items-center shadow-glow">
-            <Sparkles className="w-4 h-4 text-white" />
-          </div>
+          <img
+            src="https://raphacure-public-images.s3.ap-south-1.amazonaws.com/817420-1785136129865.png"
+            alt="Orange Stars"
+            className="w-9 h-9 object-contain"
+          />
           <div className="text-[15px] font-bold">Orange Stars</div>
         </Link>
         <nav className="flex items-center gap-1">
@@ -506,8 +510,12 @@ function TopBar({ onLogin }: { onLogin?: () => void }) {
     <header className="sticky top-0 z-40 px-5 pt-4 pb-3 bg-gradient-to-b from-background via-background/90 to-background/0 backdrop-blur-md">
       <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
         <Link to="/" className="flex min-w-0 items-center gap-2.5">
-          <div className="relative shrink-0 w-10 h-10 rounded-2xl cta-gradient grid place-items-center shadow-glow">
-            <Sparkles className="w-5 h-5 text-white" />
+          <div className="relative shrink-0 w-10 h-10">
+            <img
+              src="https://raphacure-public-images.s3.ap-south-1.amazonaws.com/817420-1785136129865.png"
+              alt="Orange Stars"
+              className="w-10 h-10 object-contain"
+            />
             <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-[oklch(0.68_0.16_148)] ring-2 ring-background" />
           </div>
           <div className="min-w-0">
