@@ -360,7 +360,7 @@ function DesktopShell({ phone, onOpenRaphacure }: { phone: ReactNode; onOpenRaph
             <img
               src="https://raphacure-public-images.s3.ap-south-1.amazonaws.com/817420-1785136129865.png"
               alt="Orange Stars"
-              className="w-9 h-9 object-contain"
+              className="h-9 w-auto object-contain"
             />
             <div>
               <div className="text-[14px] font-bold">Orange Stars</div>
@@ -383,7 +383,7 @@ function DesktopNav() {
           <img
             src="https://raphacure-public-images.s3.ap-south-1.amazonaws.com/817420-1785136129865.png"
             alt="Orange Stars"
-            className="w-9 h-9 object-contain"
+            className="h-9 w-auto object-contain"
           />
           <div className="text-[15px] font-bold">Orange Stars</div>
         </Link>
@@ -510,11 +510,11 @@ function TopBar({ onLogin }: { onLogin?: () => void }) {
     <header className="sticky top-0 z-40 px-5 pt-4 pb-3 bg-gradient-to-b from-background via-background/90 to-background/0 backdrop-blur-md">
       <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
         <Link to="/" className="flex min-w-0 items-center gap-2.5">
-          <div className="relative shrink-0 w-10 h-10">
+          <div className="relative inline-flex shrink-0">
             <img
               src="https://raphacure-public-images.s3.ap-south-1.amazonaws.com/817420-1785136129865.png"
               alt="Orange Stars"
-              className="w-10 h-10 object-contain"
+              className="h-10 w-auto object-contain"
             />
             <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-[oklch(0.68_0.16_148)] ring-2 ring-background" />
           </div>
