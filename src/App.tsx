@@ -248,7 +248,7 @@ function Landing() {
       </div>
 
       {/* Desktop: premium marketing shell with the app rendered inside a phone frame */}
-      <DesktopShell phone={<PhoneFrame>{appColumn}</PhoneFrame>} onOpenRaphacure={(url: string) => setRaphacureUrl(url)} onLogin={() => setRaphacureUrl("https://raphacure.com/?showLogin=true")} />
+      <DesktopShell phone={<PhoneFrame>{appColumn}</PhoneFrame>} onOpenRaphacure={(url: string) => setRaphacureUrl(url)} onLogin={() => setRaphacureUrl("https://orangestars.raphacure.com/?showLogin=true")} />
     </div>
   );
 }
