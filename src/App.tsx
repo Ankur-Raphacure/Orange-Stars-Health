@@ -206,7 +206,7 @@ function Landing() {
 
   const appColumn = (
     <>
-      <TopBar onLogin={() => window.location.href = "https://raphacure.com/?showLogin=true"} />
+      <TopBar onLogin={() => setRaphacureUrl("https://raphacure.com/?showLogin=true")} />
       <Hero onOpenRaphacure={(url: string) => setRaphacureUrl(url)} />
       <HealthRiskAssessment onOpenRaphacure={() => setRaphacureUrl("https://hra.raphacure.net/")} />
       <QuickServices />
@@ -248,7 +248,7 @@ function Landing() {
       </div>
 
       {/* Desktop: premium marketing shell with the app rendered inside a phone frame */}
-      <DesktopShell phone={<PhoneFrame>{appColumn}</PhoneFrame>} onOpenRaphacure={(url: string) => setRaphacureUrl(url)} />
+      <DesktopShell phone={<PhoneFrame>{appColumn}</PhoneFrame>} onOpenRaphacure={(url: string) => setRaphacureUrl(url)} onLogin={() => setRaphacureUrl("https://raphacure.com/?showLogin=true")} />
     </div>
   );
 }
@@ -274,10 +274,10 @@ function PhoneFrame({ children }: { children: ReactNode }) {
 }
 
 /* ---------- Desktop marketing shell ---------- */
-function DesktopShell({ phone, onOpenRaphacure }: { phone: ReactNode; onOpenRaphacure: (url: string) => void }) {
+function DesktopShell({ phone, onOpenRaphacure, onLogin }: { phone: ReactNode; onOpenRaphacure: (url: string) => void; onLogin: () => void }) {
   return (
     <div className="relative z-10 hidden lg:block">
-      <DesktopNav />
+      <DesktopNav onLogin={onLogin} />
 
       <section className="relative mx-auto max-w-7xl px-10 pt-16 pb-24 grid grid-cols-[1.05fr_auto] gap-16 items-center">
         <div className="max-w-xl">
@@ -374,7 +374,7 @@ function DesktopShell({ phone, onOpenRaphacure }: { phone: ReactNode; onOpenRaph
   );
 }
 
-function DesktopNav() {
+function DesktopNav({ onLogin }: { onLogin: () => void }) {
   const links = ["Preventive", "HSA", "Digital Health", "Wellness", "Corporate"];
   return (
     <header className="sticky top-4 z-40 mx-auto max-w-7xl px-6">
@@ -399,12 +399,12 @@ function DesktopNav() {
           ))}
         </nav>
         <div className="flex items-center gap-2">
-          <a
-            href="https://raphacure.com/?showLogin=true"
+          <button
+            onClick={onLogin}
             className="px-4 py-2 rounded-full text-[13px] font-semibold text-foreground/70 hover:text-foreground hover:bg-white/60 transition"
           >
             Login
-          </a>
+          </button>
           <Link to="/" className="group press">
             <PillButton>Get the app</PillButton>
           </Link>
