@@ -9,7 +9,6 @@ import {
   ShieldCheck,
   PiggyBank,
   Building2,
-  Smartphone,
   Pill,
   ShoppingBag,
   PackageCheck,
@@ -18,6 +17,7 @@ import {
   Activity,
   ArrowRight,
   ChevronRight,
+  Star,
   Plus,
   Home as HomeIcon,
   LayoutGrid,
@@ -29,6 +29,8 @@ import {
   BadgeCheck,
   Users,
 } from "lucide-react";
+
+import { DesktopSite } from "@/components/desktop-site";
 
 import heroFamily from "@/assets/hero-family.png";
 import doctorReports from "@/assets/doctor-reports.png";
@@ -209,24 +211,27 @@ function Landing() {
       <TopBar onLogin={() => setRaphacureUrl("https://orangestars.raphacure.com/?showLogin=true")} />
       <Hero onOpenRaphacure={(url: string) => setRaphacureUrl(url)} />
       <HealthRiskAssessment onOpenRaphacure={() => setRaphacureUrl("https://hra.raphacure.net/")} />
-      <QuickServices />
+      <QuickServices onOpenRaphacure={(url: string) => setRaphacureUrl(url)} />
       <BentoGrid />
       <WhyOrangeStars />
       <HSASection />
-      <PreventivePrograms />
-      <CorporateWellness />
-      <DigitalHealth />
+      <PreventivePrograms onOpenRaphacure={(url: string) => setRaphacureUrl(url)} />
+      <CorporateWellness onOpenRaphacure={(url: string) => setRaphacureUrl(url)} />
+      <DigitalHealth onOpenRaphacure={(url: string) => setRaphacureUrl(url)} />
       <HealthJourney />
       <WellnessCarousel />
+      <Testimonials />
       <TrustSection />
-      <BottomCTA />
+      <BottomCTA onOpenRaphacure={(url: string) => setRaphacureUrl(url)} />
     </>
   );
 
   return (
     <div className="relative min-h-screen w-full bg-background text-foreground overflow-x-hidden">
       <PageLoader />
-      <AuroraBackground />
+      <div className="lg:hidden">
+        <AuroraBackground />
+      </div>
 
       {/* Hidden preload iframe — tells browser to fetch & cache orangestars.raphacure.com on page load */}
       <iframe
@@ -247,165 +252,12 @@ function Landing() {
         <BottomNav />
       </div>
 
-      {/* Desktop: premium marketing shell with the app rendered inside a phone frame */}
-      <DesktopShell phone={<PhoneFrame>{appColumn}</PhoneFrame>} onOpenRaphacure={(url: string) => setRaphacureUrl(url)} onLogin={() => setRaphacureUrl("https://orangestars.raphacure.com/?showLogin=true")} />
+      {/* Desktop: corporate web layout */}
+      <DesktopSite
+        onOpenRaphacure={(url: string) => setRaphacureUrl(url)}
+        onLogin={() => setRaphacureUrl("https://orangestars.raphacure.com/?showLogin=true")}
+      />
     </div>
-  );
-}
-
-/* ---------- Phone frame (desktop only) ---------- */
-function PhoneFrame({ children }: { children: ReactNode }) {
-  return (
-    <div className="relative mx-auto w-[420px]">
-      <div className="pointer-events-none absolute -inset-10 rounded-[80px] bg-primary/20 blur-3xl opacity-60" />
-      <div className="relative rounded-[56px] p-3 bg-gradient-to-b from-foreground/90 to-foreground shadow-[0_40px_120px_-30px_oklch(0.5_0.16_50/0.55),0_20px_60px_-20px_oklch(0.5_0.16_50/0.35)] ring-1 ring-white/10">
-        <span className="absolute top-28 -left-[3px] w-[3px] h-14 rounded-l-full bg-foreground/70" />
-        <span className="absolute top-48 -left-[3px] w-[3px] h-20 rounded-l-full bg-foreground/70" />
-        <span className="absolute top-32 -right-[3px] w-[3px] h-24 rounded-r-full bg-foreground/70" />
-        <div className="relative rounded-[44px] overflow-hidden bg-background h-[860px]">
-          <div className="absolute top-2 left-1/2 -translate-x-1/2 z-50 w-32 h-7 rounded-full bg-foreground" />
-          <div className="absolute inset-0 overflow-y-auto no-scrollbar">
-            <div className="relative w-full pb-32 pt-6">{children}</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ---------- Desktop marketing shell ---------- */
-function DesktopShell({ phone, onOpenRaphacure, onLogin }: { phone: ReactNode; onOpenRaphacure: (url: string) => void; onLogin: () => void }) {
-  return (
-    <div className="relative z-10 hidden lg:block">
-      <DesktopNav onLogin={onLogin} />
-
-      <section className="relative mx-auto max-w-7xl px-10 pt-16 pb-24 grid grid-cols-[1.05fr_auto] gap-16 items-center">
-        <div className="max-w-xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-[12px] font-semibold text-foreground/80">
-            <span className="w-1.5 h-1.5 rounded-full bg-[oklch(0.68_0.16_148)] animate-pulse" />
-            India's premium preventive care platform
-          </div>
-          <h1 className="mt-6 text-[68px] leading-[0.98] font-extrabold tracking-tight">
-            Healthy Today.
-            <br />
-            <span className="bg-gradient-to-r from-[oklch(0.62_0.2_38)] to-[oklch(0.72_0.2_58)] bg-clip-text text-transparent">
-              Secure Tomorrow.
-            </span>
-          </h1>
-          <p className="mt-6 text-[19px] leading-relaxed text-foreground/70 max-w-lg">
-            Preventive healthcare, digital health records, wellness programs, and a Health Savings Account — designed like your favorite app, built for the way you actually live.
-          </p>
-
-          <div className="mt-8 flex flex-wrap gap-3">
-            <button onClick={() => onOpenRaphacure("https://orangestars.raphacure.com/")} className="group press">
-              <PillButton>Explore Services</PillButton>
-            </button>
-            <button onClick={() => onOpenRaphacure("https://hra.raphacure.net/")} className="group press">
-              <PillButton variant="ghost" icon={<ChevronRight className="w-4 h-4" />}>
-                Start Health Assessment
-              </PillButton>
-            </button>
-          </div>
-
-          <div className="mt-10 grid grid-cols-3 gap-6 max-w-md">
-            {[
-              { k: "Members", v: 2, suffix: "M+" },
-              { k: "Cities", v: 180, suffix: "+" },
-              { k: "Partners", v: 1200, suffix: "+" },
-            ].map((s) => (
-              <div key={s.k}>
-                <div className="text-[28px] font-extrabold tracking-tight">
-                  <CountUp to={s.v} suffix={s.suffix} />
-                </div>
-                <div className="text-[12px] uppercase tracking-[0.14em] text-muted-foreground mt-1">
-                  {s.k}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="relative">{phone}</div>
-      </section>
-
-      <section className="relative mx-auto max-w-7xl px-10 pb-24">
-        <div className="mb-8">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary/80 mb-2">Four pillars</div>
-          <h2 className="text-[42px] leading-[1.05] font-bold tracking-tight max-w-2xl">
-            One app for every part of your health journey.
-          </h2>
-        </div>
-        <div className="grid grid-cols-4 gap-5">
-          {[
-            { icon: Stethoscope, title: "Preventive Care", desc: "Screenings, checkups & doctor consults.", tint: "from-[oklch(0.94_0.09_25)] to-[oklch(0.86_0.16_30)]" },
-            { icon: PiggyBank, title: "Health Savings", desc: "Tax-smart HSA for every medical need.", tint: "from-[oklch(0.93_0.09_68)] to-[oklch(0.82_0.16_55)]" },
-            { icon: Smartphone, title: "Digital Health", desc: "Records, prescriptions & AI insights.", tint: "from-[oklch(0.92_0.08_235)] to-[oklch(0.78_0.14_240)]" },
-            { icon: Leaf, title: "Wellness Programs", desc: "Fitness, nutrition, mindfulness.", tint: "from-[oklch(0.93_0.09_155)] to-[oklch(0.8_0.14_158)]" },
-          ].map((f) => (
-            <div key={f.title} className="group press bento-card p-6 rounded-[24px] relative overflow-hidden">
-              <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${f.tint} grid place-items-center shadow-soft`}>
-                <f.icon className="w-7 h-7 text-white" />
-              </div>
-              <div className="mt-5 text-[18px] font-bold">{f.title}</div>
-              <p className="mt-1.5 text-[14px] text-muted-foreground leading-relaxed">{f.desc}</p>
-              <ArrowRight className="absolute top-6 right-6 w-4 h-4 text-muted-foreground transition-transform duration-500 group-hover:translate-x-1 group-hover:text-primary" />
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <footer className="relative border-t border-border/60 bg-background/60 backdrop-blur-md">
-        <div className="mx-auto max-w-7xl px-10 py-10 flex items-center justify-between">
-          <div className="flex items-center">
-            <img
-              src="https://raphacure-public-images.s3.ap-south-1.amazonaws.com/817420-1785136129865.png"
-              alt="Orange Stars"
-              className="h-20 w-auto object-contain"
-            />
-          </div>
-          <div className="text-[12px] text-muted-foreground">© {new Date().getFullYear()} Orange Stars. All rights reserved.</div>
-        </div>
-      </footer>
-    </div>
-  );
-}
-
-function DesktopNav({ onLogin }: { onLogin: () => void }) {
-  const links = ["Preventive", "HSA", "Digital Health", "Wellness", "Corporate"];
-  return (
-    <header className="sticky top-4 z-40 mx-auto max-w-7xl px-6">
-      <div className="glass-strong rounded-full px-5 py-3 flex items-center justify-between">
-        <Link to="/" className="flex items-center">
-          <img
-            src="https://raphacure-public-images.s3.ap-south-1.amazonaws.com/817420-1785136129865.png"
-            alt="Orange Stars"
-            className="h-20 w-auto object-contain"
-          />
-        </Link>
-        <nav className="flex items-center gap-1">
-          {links.map((l) => (
-            <Link
-              key={l}
-              to="/"
-              className="px-4 py-2 rounded-full text-[13px] font-medium text-foreground/70 hover:text-foreground hover:bg-white/60 transition"
-            >
-              {l}
-            </Link>
-          ))}
-        </nav>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={onLogin}
-            className="px-4 py-2 rounded-full text-[13px] font-semibold text-foreground/70 hover:text-foreground hover:bg-white/60 transition"
-          >
-            Login
-          </button>
-          <Link to="/" className="group press">
-            <PillButton>Get the app</PillButton>
-          </Link>
-        </div>
-      </div>
-    </header>
   );
 }
 
@@ -504,31 +356,38 @@ function TopBar({ onLogin }: { onLogin?: () => void }) {
   return (
     <header className="sticky top-0 z-40 px-5 pt-4 pb-3 bg-gradient-to-b from-background via-background/90 to-background/0 backdrop-blur-md">
       <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
-        <Link to="/" className="flex min-w-0 items-center">
-          <div className="relative inline-flex shrink-0">
-            <img
-              src="https://raphacure-public-images.s3.ap-south-1.amazonaws.com/817420-1785136129865.png"
-              alt="Orange Stars"
-              className="h-20 w-auto object-contain"
-            />
+        <Link to="/" className="flex min-w-0 items-center gap-2.5">
+          <div className="relative shrink-0 w-10 h-10 rounded-2xl cta-gradient grid place-items-center shadow-glow">
+            <Sparkles className="w-5 h-5 text-white" />
             <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-[oklch(0.68_0.16_148)] ring-2 ring-background" />
+          </div>
+          <div className="min-w-0">
+            <div className="text-[15px] font-bold leading-none truncate">Orange Stars</div>
+            <div className="text-[11px] text-muted-foreground mt-1">Preventive care · HSA</div>
           </div>
         </Link>
         <div className="flex items-center gap-2 shrink-0">
           <button
+            type="button"
             onClick={onLogin}
-            className="text-[13px] font-semibold text-foreground/70 hover:text-foreground transition-colors px-2"
+            className="text-[13px] font-semibold text-foreground/70 hover:text-foreground transition-colors px-2 cursor-pointer"
           >
             Login
           </button>
           <button
+            type="button"
             aria-label="Notifications"
-            className="relative w-10 h-10 rounded-full glass grid place-items-center hover:bg-white/80 transition"
+            className="relative w-10 h-10 rounded-full glass grid place-items-center hover:bg-white/80 transition cursor-pointer"
           >
             <Bell className="w-[18px] h-[18px] text-foreground" />
             <span className="absolute top-2 right-2.5 w-1.5 h-1.5 rounded-full bg-primary" />
           </button>
-          <button aria-label="Profile" className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-white shadow-soft">
+          <button
+            type="button"
+            onClick={onLogin}
+            aria-label="Profile"
+            className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-white shadow-soft cursor-pointer"
+          >
             <div className="w-full h-full bg-gradient-to-br from-[oklch(0.86_0.11_65)] to-[oklch(0.72_0.18_45)] grid place-items-center text-white text-sm font-bold">
               A
             </div>
@@ -676,20 +535,25 @@ function HealthRiskAssessment({ onOpenRaphacure }: { onOpenRaphacure: () => void
 }
 
 /* ---------- Quick Services ---------- */
-function QuickServices() {
+function QuickServices({ onOpenRaphacure }: { onOpenRaphacure?: (url: string) => void }) {
   const items = [
-    { label: "Preventive Health", Icon: ShieldCheck, tint: "from-[oklch(0.94_0.09_60)] to-[oklch(0.86_0.16_50)]" },
-    { label: "Book Lab Test", Icon: FlaskConical, tint: "from-[oklch(0.93_0.08_240)] to-[oklch(0.78_0.15_240)]" },
-    { label: "Doctor Consult", Icon: Stethoscope, tint: "from-[oklch(0.94_0.08_155)] to-[oklch(0.78_0.15_150)]" },
-    { label: "Health Reports", Icon: FileText, tint: "from-[oklch(0.94_0.07_25)] to-[oklch(0.82_0.15_25)]" },
+    { label: "Preventive Health", Icon: ShieldCheck, tint: "from-[oklch(0.94_0.09_60)] to-[oklch(0.86_0.16_50)]", url: "https://hra.raphacure.net/" },
+    { label: "Book Lab Test", Icon: FlaskConical, tint: "from-[oklch(0.93_0.08_240)] to-[oklch(0.78_0.15_240)]", url: "https://orangestars.raphacure.com/" },
+    { label: "Doctor Consult", Icon: Stethoscope, tint: "from-[oklch(0.94_0.08_155)] to-[oklch(0.78_0.15_150)]", url: "https://orangestars.raphacure.com/" },
+    { label: "Health Reports", Icon: FileText, tint: "from-[oklch(0.94_0.07_25)] to-[oklch(0.82_0.15_25)]", url: "https://orangestars.raphacure.com/?showLogin=true" },
   ];
   return (
     <section className="mt-12">
       <SectionTitle eyebrow="Quick access" title="Quick Services" />
       <Reveal>
         <div className="px-5 grid grid-cols-4 gap-3">
-          {items.map(({ label, Icon, tint }, i) => (
-            <CardLink key={label} to="/" className="flex flex-col items-center gap-2">
+          {items.map(({ label, Icon, tint, url }, i) => (
+            <button
+              key={label}
+              type="button"
+              onClick={() => onOpenRaphacure?.(url)}
+              className="flex flex-col items-center gap-2 group press cursor-pointer"
+            >
               <div
                 className={`relative w-[62px] h-[62px] rounded-[24px] bg-gradient-to-br ${tint} grid place-items-center shadow-soft animate-breathe transition-transform duration-500 group-hover:-translate-y-1 group-hover:shadow-glow group-active:scale-90`}
                 style={{ animationDelay: `${i * 220}ms` }}
@@ -703,7 +567,7 @@ function QuickServices() {
               <span className="text-[11px] font-medium text-center leading-tight text-foreground/80 min-w-0">
                 {label}
               </span>
-            </CardLink>
+            </button>
           ))}
         </div>
       </Reveal>
@@ -958,7 +822,7 @@ function HSASection() {
 }
 
 /* ---------- Preventive Programs (horizontal) ---------- */
-function PreventivePrograms() {
+function PreventivePrograms({ onOpenRaphacure }: { onOpenRaphacure?: (url: string) => void }) {
   const items = [
     { title: "Annual Health Check", tag: "Most popular", tint: "from-[oklch(0.94_0.07_60)] to-[oklch(0.86_0.14_50)]" },
     { title: "Executive Health Check", tag: "Premium", tint: "from-[oklch(0.22_0.03_45)] to-[oklch(0.36_0.06_55)]", dark: true },
@@ -975,7 +839,11 @@ function PreventivePrograms() {
       <div className="pl-5 flex gap-3 overflow-x-auto no-scrollbar pb-2 pr-5 snap-x snap-mandatory">
         {items.map((it, i) => (
           <Reveal key={it.title} delay={i * 40}>
-            <CardLink to="/" className="snap-start">
+            <button
+              type="button"
+              onClick={() => onOpenRaphacure?.("https://orangestars.raphacure.com/")}
+              className="snap-start text-left cursor-pointer group press"
+            >
               <div
                 className={`w-[180px] h-[220px] rounded-[24px] p-4 bg-gradient-to-br ${it.tint} shadow-card relative overflow-hidden ${
                   it.dark ? "text-white" : ""
@@ -992,7 +860,7 @@ function PreventivePrograms() {
                 </div>
                 <div className="pointer-events-none absolute -bottom-6 -right-4 w-24 h-24 rounded-full bg-white/25 blur-2xl" />
               </div>
-            </CardLink>
+            </button>
           </Reveal>
         ))}
       </div>
@@ -1001,12 +869,16 @@ function PreventivePrograms() {
 }
 
 /* ---------- Corporate Wellness ---------- */
-function CorporateWellness() {
+function CorporateWellness({ onOpenRaphacure }: { onOpenRaphacure?: (url: string) => void }) {
   const features = ["Health Camps", "Annual Checkups", "Occupational Health", "Risk Assessment", "Wellness Calendar"];
   return (
     <section className="px-5 mt-12">
       <Reveal>
-        <CardLink to="/">
+        <button
+          type="button"
+          onClick={() => onOpenRaphacure?.("https://orangestars.raphacure.com/")}
+          className="w-full text-left cursor-pointer group press"
+        >
           <div className="relative rounded-[24px] sm:rounded-[32px] p-6 overflow-hidden bg-gradient-to-br from-[oklch(0.95_0.04_240)] to-[oklch(0.88_0.1_240)] shadow-card">
             <div className="pointer-events-none absolute -top-10 -right-8 w-40 h-40 rounded-full bg-white/50 blur-3xl" />
             <div className="text-[11px] font-semibold uppercase tracking-wider text-[oklch(0.45_0.18_240)]">
@@ -1040,19 +912,23 @@ function CorporateWellness() {
               <PillButton variant="dark">Corporate Solutions</PillButton>
             </div>
           </div>
-        </CardLink>
+        </button>
       </Reveal>
     </section>
   );
 }
 
 /* ---------- Digital Health full-width ---------- */
-function DigitalHealth() {
+function DigitalHealth({ onOpenRaphacure }: { onOpenRaphacure?: (url: string) => void }) {
   const features = ["Book Labs", "Free Home Collection", "Digital Reports", "Health Records", "Trend Tracking", "Book Doctors"];
   return (
     <section className="px-5 mt-12">
       <Reveal>
-        <CardLink to="/">
+        <button
+          type="button"
+          onClick={() => onOpenRaphacure?.("https://orangestars.raphacure.com/?showLogin=true")}
+          className="w-full text-left cursor-pointer group press"
+        >
           <div className="relative rounded-[24px] sm:rounded-[32px] overflow-hidden shadow-card bg-gradient-to-br from-[oklch(0.22_0.03_45)] to-[oklch(0.34_0.06_55)] text-white p-6">
             <div className="pointer-events-none absolute -top-10 -left-10 w-44 h-44 rounded-full bg-primary/30 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-10 -right-6 w-44 h-44 rounded-full bg-[oklch(0.7_0.15_240)]/30 blur-3xl" />
@@ -1087,7 +963,7 @@ function DigitalHealth() {
               <PillButton>Open Dashboard</PillButton>
             </div>
           </div>
-        </CardLink>
+        </button>
       </Reveal>
     </section>
   );
@@ -1161,6 +1037,61 @@ function WellnessCarousel() {
                 </div>
               </div>
             </CardLink>
+          </Reveal>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ---------- Testimonials ---------- */
+function Testimonials() {
+  const items = [
+    {
+      name: "Priya S.",
+      role: "Member since 2024",
+      initial: "P",
+      quote: "The wellness score changed how I think about health. I caught a risk before it became a problem.",
+      color: "from-[oklch(0.86_0.13_25)] to-[oklch(0.72_0.18_35)]",
+    },
+    {
+      name: "Rahul M.",
+      role: "HSA Saver",
+      initial: "R",
+      quote: "My family and I saved for years — and it covered a critical procedure without any stress.",
+      color: "from-[oklch(0.82_0.14_150)] to-[oklch(0.66_0.16_150)]",
+    },
+    {
+      name: "Aisha K.",
+      role: "Executive Check",
+      initial: "A",
+      quote: "Booking, sample collection, doctor review — the whole flow felt like a five-star hotel.",
+      color: "from-[oklch(0.82_0.13_240)] to-[oklch(0.66_0.17_240)]",
+    },
+  ];
+  return (
+    <section className="mt-12">
+      <SectionTitle eyebrow="Voices" title="Loved by real people" />
+      <div className="pl-5 flex gap-3 overflow-x-auto no-scrollbar pb-2 pr-5 snap-x snap-mandatory">
+        {items.map((t, i) => (
+          <Reveal key={t.name} delay={i * 60}>
+            <div className="snap-start w-[280px] rounded-[24px] bg-card p-5 shadow-card border border-border/60 h-full">
+              <div className="flex items-center gap-3">
+                <div className={`w-11 h-11 rounded-full bg-gradient-to-br ${t.color} grid place-items-center text-white font-bold`}>
+                  {t.initial}
+                </div>
+                <div className="min-w-0">
+                  <div className="text-[13.5px] font-bold truncate">{t.name}</div>
+                  <div className="text-[11px] text-muted-foreground truncate">{t.role}</div>
+                </div>
+              </div>
+              <div className="mt-3 flex gap-0.5">
+                {Array.from({ length: 5 }).map((_, k) => (
+                  <Star key={k} className="w-3.5 h-3.5 text-primary" fill="currentColor" />
+                ))}
+              </div>
+              <p className="mt-3 text-[13.5px] leading-relaxed text-foreground/80">"{t.quote}"</p>
+            </div>
           </Reveal>
         ))}
       </div>
@@ -1309,11 +1240,15 @@ function TrustSection() {
 }
 
 /* ---------- Bottom CTA ---------- */
-function BottomCTA() {
+function BottomCTA({ onOpenRaphacure }: { onOpenRaphacure?: (url: string) => void }) {
   return (
     <section className="px-5 mt-14">
       <Reveal>
-        <CardLink to="/">
+        <button
+          type="button"
+          onClick={() => onOpenRaphacure?.("https://orangestars.raphacure.com/")}
+          className="w-full text-left cursor-pointer group press"
+        >
           <div className="relative overflow-hidden rounded-[24px] sm:rounded-[32px] p-7 shadow-card cta-gradient text-white">
             <div className="pointer-events-none absolute -top-10 -right-6 w-40 h-40 rounded-full bg-white/25 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-14 -left-8 w-44 h-44 rounded-full bg-black/10 blur-3xl" />
@@ -1328,7 +1263,7 @@ function BottomCTA() {
               Get Started <ArrowRight className="w-4 h-4" />
             </div>
           </div>
-        </CardLink>
+        </button>
       </Reveal>
     </section>
   );

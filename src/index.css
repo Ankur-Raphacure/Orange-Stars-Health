@@ -41,6 +41,7 @@
   --color-success: var(--success);
   --color-info: var(--info);
   --color-surface: var(--surface);
+  --color-navy: var(--navy);
   --color-ring-offset-background: var(--background);
 }
 
@@ -51,6 +52,7 @@
   --background: oklch(0.985 0.013 78);
   --foreground: oklch(0.22 0.03 40);
   --surface: oklch(0.975 0.018 75);
+  --navy: oklch(0.29 0.075 259);
 
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.22 0.03 40);
